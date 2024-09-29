@@ -2,6 +2,10 @@ package models
 
 import "log"
 
+func ExecSqlScript(content string) {
+	DB.Exec(content)
+}
+
 func Seed() {
 	poll0 := Poll{Name: "My first poll"}
 	DB.Create(&poll0)
