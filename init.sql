@@ -1,6 +1,13 @@
+drop table replies;
+drop table instances;
+drop table answers;
+drop table questions;
+drop table polls;
+
 CREATE TABLE IF NOT EXISTS polls (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(512),
+    name VARCHAR(512) NOT NULL,
+    owner_cn VARCHAR(64) NOT NULL,
     -- default
     created_at TIMESTAMP WITH TIME ZONE,
     updated_at TIMESTAMP WITH TIME ZONE,
@@ -31,6 +38,7 @@ CREATE TABLE IF NOT EXISTS answers (
 CREATE TABLE IF NOT EXISTS instances (
     id SERIAL PRIMARY KEY,
     poll_id INTEGER REFERENCES polls(id),
+    owner_cn VARCHAR(64) NOT NULL,
     -- default
     created_at TIMESTAMP WITH TIME ZONE,
     updated_at TIMESTAMP WITH TIME ZONE,
@@ -42,7 +50,7 @@ CREATE TABLE IF NOT EXISTS replies (
     question_id INTEGER REFERENCES questions(id),
     answer_id INTEGER REFERENCES answers(id),
     main_text VARCHAR(2048),
-    PRIMARY KEY (instance_id, question_id),
+    PRIMARY KEY (instance_id, question_id, answer_id),
     -- default
     created_at TIMESTAMP WITH TIME ZONE,
     updated_at TIMESTAMP WITH TIME ZONE

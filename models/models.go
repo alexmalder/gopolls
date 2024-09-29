@@ -8,7 +8,8 @@ import (
 
 type Poll struct {
 	gorm.Model
-	Name string
+	Name    string
+	OwnerCn string
 }
 
 type Question struct {
@@ -26,7 +27,8 @@ type Answer struct {
 
 type Instance struct {
 	gorm.Model
-	PollID uint
+	PollID  uint
+	OwnerCn string
 }
 
 type Reply struct {

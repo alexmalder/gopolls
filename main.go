@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"main/auth"
 	"main/controllers"
+	"main/domain"
 	"main/models"
 
 	"github.com/gin-gonic/gin"
@@ -23,8 +23,9 @@ func main() {
 	models.ExecSqlScript(string(content))
 
 	models.Seed()
-	auth.ExampleConn_WhoAmI()
+	domain.ExampleConn_WhoAmI()
 
-	r.GET("/api/polls", controllers.GetPolls)
-	r.Run()
+	r.POST("/api/polls", controllers.PostPoll)
+	r.GET("/api/polls/:ownercn", controllers.GetPollByOwnerCn)
+	r.Run(":8000")
 }
