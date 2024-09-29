@@ -6,12 +6,9 @@ import (
 	"main/controllers"
 	"main/domain"
 	"main/models"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
 	models.Connect()
 
 	content, err := ioutil.ReadFile("init.sql")
@@ -25,7 +22,5 @@ func main() {
 	models.Seed()
 	domain.ExampleConn_WhoAmI()
 
-	r.POST("/api/polls", controllers.PostPoll)
-	r.GET("/api/polls/:ownercn", controllers.GetPollByOwnerCn)
-	r.Run(":8000")
+	controllers.Listen()
 }
