@@ -1,6 +1,22 @@
 package models
 
-import "log"
+import (
+	"log"
+
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+)
+
+var DB *gorm.DB
+
+func Connect() {
+	dsn := "host=localhost user=alexmalder password=alexmalder dbname=alexmalder port=5432 sslmode=disable"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+	DB = db
+}
 
 func ExecSqlScript(content string) {
 	DB.Exec(content)
