@@ -1,0 +1,39 @@
+---
+services:
+  openldap:
+    image: bitnami/openldap:2.6
+    container_name: openldap
+    environment:
+      LDAP_ADMIN_USERNAME: "admin"
+      LDAP_ADMIN_PASSWORD: "adminpwd"
+      LDAP_ROOT: "dc=example,dc=ru"
+      LDAP_USERS: "user01,user02"
+      LDAP_PASSWORDS: "password1,password2"
+    ports:
+      - 1389:1389
+      - 1686:1686
+    volumes:
+      - openldap:/bitnami/openldap
+  lam:
+    image: ldapaccountmanager/lam:8.3
+    container_name: lam
+    environment:
+      LAM_SKIP_PRECONFIGURE: "false"
+      LDAP_DOMAIN: "dc=example,dc=ru"
+      LDAP_BASE_DN: "dc=example,dc=ru"
+      #LDAP_USERS_DN: "ou=users,dc=example,dc=ru"
+      #LDAP_GROUPS_DN: "ou=groups,dc=example,dc=ru"
+      LDAP_SERVER: "ldap://openldap:1389"
+      LDAP_USER: "cn=admin,dc=example,dc=ru"
+      LAM_LANG: en_US
+      LAM_PASSWORD: lam
+      LAM_CONFIGURATION_DATABASE: files
+      LAM_DISABLE_TLS_CHECK: "true"
+      LDAP_ORGANISATION: "LDAP"
+      LDAP_ADMIN_PASSWORD: "adminpwd"
+      LDAP_READONLY_USER_PASSWORD: "readonlypw"
+    ports:
+      - 8080:80
+
+volumes:
+  openldap: null
