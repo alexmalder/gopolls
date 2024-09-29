@@ -33,10 +33,13 @@ func Seed() {
 
 	answer0 := Answer{QuestionID: question0.ID, MainText: "Germany"}
 	answer1 := Answer{QuestionID: question0.ID, MainText: "Russia"}
+	answer2 := Answer{QuestionID: question0.ID, MainText: "Free Form"}
 	DB.Create(&answer0)
 	log.Println("Created answer0:", answer0.ID, answer0.MainText)
 	DB.Create(&answer1)
 	log.Println("Created answer1:", answer1.ID, answer1.MainText)
+	DB.Create(&answer2)
+	log.Println("Created answer1:", answer2.ID, answer2.MainText)
 
 	instance0 := Instance{PollID: poll0.ID}
 	DB.Create(&instance0)
@@ -47,7 +50,7 @@ func Seed() {
 	// reply is Russia
 	reply1 := Reply{InstanceID: instance0.ID, QuestionID: question0.ID, AnswerID: answer1.ID}
 	// reply is free form
-	reply2 := Reply{InstanceID: instance0.ID, QuestionID: question0.ID, MainText: "Poland"}
+	reply2 := Reply{InstanceID: instance0.ID, QuestionID: question0.ID, AnswerID: answer2.ID, MainText: "Poland"}
 	// create replies
 	DB.Create(&reply0)
 	log.Println("Created reply0:", reply0.QuestionID, reply0.AnswerID, reply0.InstanceID, reply0.MainText)

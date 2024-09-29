@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
@@ -32,11 +30,10 @@ type Instance struct {
 }
 
 type Reply struct {
+	gorm.Model
 	InstanceID uint
 	QuestionID uint
 	// answer_id or main_text in reply
-	AnswerID  uint
-	MainText  string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	AnswerID uint
+	MainText string
 }
